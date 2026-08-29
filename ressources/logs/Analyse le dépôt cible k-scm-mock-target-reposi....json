@@ -1,0 +1,53 @@
+{
+  "id": "4c0d88ad-2ae5-427b-aa98-e244bdae4d8d",
+  "appName": "app",
+  "userId": "user",
+  "state": {
+    "__session_metadata__": {
+      "displayName": "Analyse le dépôt cible k-scm-mock-target-reposi..."
+    }
+  },
+  "events": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "Analyse le dépôt cible k-scm-mock-target-repository et liste les violations IaC Terraform et Python identifiées, en précisant les règles KSCM-TF-* et KSCM-PY-* impactées."
+          }
+        ],
+        "role": "user"
+      },
+      "invocationId": "e-e82c534e-42ac-4b4d-83b1-061b9c8a95a5",
+      "author": "user",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": ""
+      },
+      "id": "2ee869bf-d038-49ad-ab24-bfc98cb4585b",
+      "timestamp": 1785518770.0241053
+    },
+    {
+      "errorCode": "RefreshError",
+      "errorMessage": "Reauthentication is needed. Please run `gcloud auth application-default login` to reauthenticate.",
+      "invocationId": "e-e82c534e-42ac-4b4d-83b1-061b9c8a95a5",
+      "author": "audit_orchestrator",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": "audit_orchestrator@1"
+      },
+      "id": "e06f2d84-09cb-4a07-af9d-4d62634d294e",
+      "timestamp": 1785519209.0203745
+    }
+  ],
+  "lastUpdateTime": 1785519209.0203745
+}

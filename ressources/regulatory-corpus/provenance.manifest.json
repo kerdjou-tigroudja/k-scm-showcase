@@ -1,0 +1,242 @@
+{
+  "schema_version": "1.0.0",
+  "manifest_id": "KSCM-REGULATORY-CORPUS-2026-07-27",
+  "generated_at": "2026-07-27T15:21:57+02:00",
+  "verification_run_id": "019fa3a8-dbeb-7d02-b50b-05c1bd695d70",
+  "repository": {
+    "name": "kerdjou-tigroudja/k-scm-sovereign-compliance-mesh",
+    "local_path": "/home/kerdjou_tigroudja/workspace/k-scm-sovereign-compliance-mesh",
+    "branch": "main",
+    "observed_commit": "2db1d3562c2cb8f4877e7da5daced1d9a999ab3d"
+  },
+  "source_snapshot": {
+    "repository": "kerdjou-tigroudja/pilotage-professionnel",
+    "observed_commit": "4c52794471a92df85cdcae6152f86d2eb84926cf",
+    "acquisition_date": "2026-07-27",
+    "acquisition_evidence": "Reconstructed from local filesystem timestamps and the source commit; no independent acquisition log was available."
+  },
+  "reuse_policy": {
+    "url": "https://eur-lex.europa.eu/content/legal-notice/legal-notice.html?locale=en",
+    "basis": "Commission Decision 2011/833/EU",
+    "summary": "Unless otherwise specified, EUR-Lex legal documents may be reused commercially or non-commercially with source acknowledgement, indication of changes, and clearance of any third-party rights."
+  },
+  "content_controls": {
+    "binary_sha256_all_distinct": true,
+    "same_act_language_html_pdf_bidirectional_coverage_range": {
+      "minimum": 0.954816,
+      "maximum": 0.976137
+    },
+    "different_act_same_language_maximum_coverage": 0.012034,
+    "method": "Unicode-normalized alphanumeric content; 80-character fragments sampled every 401 characters in both directions.",
+    "language_variants_are_identical": false
+  },
+  "artifacts": [
+    {
+      "source_id": "AI-2024-1689-FR-HTML",
+      "act": "Regulation (EU) 2024/1689",
+      "celex": "32024R1689",
+      "eli": "https://data.europa.eu/eli/reg/2024/1689/oj",
+      "language": "fr",
+      "format": "HTML",
+      "authority": "official_representation",
+      "source_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=OJ:L_202401689",
+      "acquired_at": "2026-07-27T07:41:14+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 1383324,
+      "sha256": "D8B1A7775F597DC8D49A2BDC91AF0DCA3BC12AC558B97504685F9534660BB44E",
+      "path": "ressources/regulatory-corpus/raw/eu-ai-act/2024-1689/fr/EU_AI_Act_Reglement_2024_1689_FR.html",
+      "markers": ["Regulation (EU) 2024/1689", "Article 113", "Annex XIII", "Official Journal"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "source_id": "AI-2024-1689-FR-PDF",
+      "act": "Regulation (EU) 2024/1689",
+      "celex": "32024R1689",
+      "eli": "https://data.europa.eu/eli/reg/2024/1689/oj",
+      "language": "fr",
+      "format": "PDF",
+      "authority": "authentic_official_journal",
+      "source_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=OJ:L_202401689",
+      "acquired_at": "2026-07-27T07:41:14+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 2669245,
+      "sha256": "C51F87B9CA120C1A9FBD706991F00EB8EF891D2960C3BC2BD46C046C312350EB",
+      "path": "ressources/regulatory-corpus/raw/eu-ai-act/2024-1689/fr/EU_AI_Act_Reglement_2024_1689_FR.pdf",
+      "markers": ["Regulation (EU) 2024/1689", "144 pages", "Article 113", "Annex XIII"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "source_id": "AI-2024-1689-EN-HTML",
+      "act": "Regulation (EU) 2024/1689",
+      "celex": "32024R1689",
+      "eli": "https://data.europa.eu/eli/reg/2024/1689/oj",
+      "language": "en",
+      "format": "HTML",
+      "authority": "official_representation",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "acquired_at": "2026-07-27T07:41:15+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 1262391,
+      "sha256": "8F0B656302F9864CC87E040C371F209A9D65AE1A6CECC25CA5EB737E872D721A",
+      "path": "ressources/regulatory-corpus/raw/eu-ai-act/2024-1689/en/EU_AI_Act_Regulation_2024_1689_EN.html",
+      "markers": ["Regulation (EU) 2024/1689", "Article 113", "Annex XIII", "Official Journal"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "source_id": "AI-2024-1689-EN-PDF",
+      "act": "Regulation (EU) 2024/1689",
+      "celex": "32024R1689",
+      "eli": "https://data.europa.eu/eli/reg/2024/1689/oj",
+      "language": "en",
+      "format": "PDF",
+      "authority": "authentic_official_journal",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=OJ:L_202401689",
+      "acquired_at": "2026-07-27T07:41:15+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 2583319,
+      "sha256": "BBA630444B3278E881066774002A1D7824308934F49CCFA203E65BE43692F55E",
+      "path": "ressources/regulatory-corpus/raw/eu-ai-act/2024-1689/en/EU_AI_Act_Regulation_2024_1689_EN.pdf",
+      "markers": ["Regulation (EU) 2024/1689", "144 pages", "Article 113", "Annex XIII"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "source_id": "GDPR-2016-679-EN-HTML",
+      "act": "Regulation (EU) 2016/679",
+      "celex": "32016R0679",
+      "eli": "https://data.europa.eu/eli/reg/2016/679/oj",
+      "language": "en",
+      "format": "HTML",
+      "authority": "official_representation",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679",
+      "acquired_at": "2026-07-27T08:09:40+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 806864,
+      "sha256": "962539AF03738BF552319FF4CE42D69E5F95A576307C4DFED7BF87E81B646B9D",
+      "path": "ressources/regulatory-corpus/raw/gdpr/2016-679/en/GDPR_Regulation_2016_679_EN.html",
+      "markers": ["Regulation (EU) 2016/679", "Article 99", "final binding clause", "Official Journal"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "source_id": "GDPR-2016-679-EN-PDF",
+      "act": "Regulation (EU) 2016/679",
+      "celex": "32016R0679",
+      "eli": "https://data.europa.eu/eli/reg/2016/679/oj",
+      "language": "en",
+      "format": "PDF",
+      "authority": "authentic_official_journal",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32016R0679",
+      "acquired_at": "2026-07-27T08:09:40+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 982296,
+      "sha256": "BD84E63F5B622B739A83389AFC3B30D240F792BB88D8EB03A816C9A82B0C2499",
+      "path": "ressources/regulatory-corpus/raw/gdpr/2016-679/en/GDPR_Regulation_2016_679_EN.pdf",
+      "markers": ["Regulation (EU) 2016/679", "88 pages", "Article 99", "final binding clause"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "source_id": "GDPR-2016-679-FR-HTML",
+      "act": "Regulation (EU) 2016/679",
+      "celex": "32016R0679",
+      "eli": "https://data.europa.eu/eli/reg/2016/679/oj",
+      "language": "fr",
+      "format": "HTML",
+      "authority": "official_representation",
+      "source_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32016R0679",
+      "acquired_at": "2026-07-27T08:09:39+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 876858,
+      "sha256": "27A2248CF0CF7C79A3EC7EAE30B6E871817230D9F577632FED915181642144C2",
+      "path": "ressources/regulatory-corpus/raw/gdpr/2016-679/fr/RGPD_Reglement_2016_679_FR.html",
+      "markers": ["Regulation (EU) 2016/679", "Article 99", "final binding clause", "Official Journal"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "source_id": "GDPR-2016-679-FR-PDF",
+      "act": "Regulation (EU) 2016/679",
+      "celex": "32016R0679",
+      "eli": "https://data.europa.eu/eli/reg/2016/679/oj",
+      "language": "fr",
+      "format": "PDF",
+      "authority": "authentic_official_journal",
+      "source_url": "https://eur-lex.europa.eu/legal-content/FR/TXT/PDF/?uri=CELEX:32016R0679",
+      "acquired_at": "2026-07-27T08:09:39+02:00",
+      "last_verified_at": "2026-07-27T15:21:57+02:00",
+      "bytes": 1050270,
+      "sha256": "5B67A45C2529B7BC127645A8DB21CB383A414A0BA5945E22F7A8B908D62C7D8F",
+      "path": "ressources/regulatory-corpus/raw/gdpr/2016-679/fr/RGPD_Reglement_2016_679_FR.pdf",
+      "markers": ["Regulation (EU) 2016/679", "88 pages", "Article 99", "final binding clause"],
+      "identity_status": "VALID",
+      "governance_status": "QUALIFIED"
+    }
+  ],
+  "legacy_artifacts": [
+    {
+      "path": "ressources/EU_AI_ACT_EN.txt",
+      "bytes": 586173,
+      "sha256": "2921D80635BD3E9CE3772E4CE28348C10C591DB8EFDF09DCE4F8F89C0A47FCEC",
+      "status": "DUPLICATE",
+      "reason": "Semantic duplicate of the English AI Act HTML representation."
+    },
+    {
+      "path": "ressources/GDPR_EN.txt",
+      "bytes": 586173,
+      "sha256": "2921D80635BD3E9CE3772E4CE28348C10C591DB8EFDF09DCE4F8F89C0A47FCEC",
+      "status": "INVALID",
+      "reason": "Contains Regulation (EU) 2024/1689 instead of Regulation (EU) 2016/679."
+    }
+  ],
+  "derived_artifacts": [
+    {
+      "artifact_id": "AI-2024-1689-EN-TXT-DERIVED",
+      "act": "Regulation (EU) 2024/1689",
+      "language": "en",
+      "format": "TXT",
+      "authority": "derived_official_clean_text",
+      "source_html_id": "AI-2024-1689-EN-HTML",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=OJ:L_202401689",
+      "source_html_sha256": "8F0B656302F9864CC87E040C371F209A9D65AE1A6CECC25CA5EB737E872D721A",
+      "converter": "app.rag.converter (BeautifulSoup4 html.parser + NFKC normalization v1.0.0)",
+      "derived_at_utc": "2026-07-28T01:51:51Z",
+      "path": "ressources/regulatory-corpus/derived/EU_AI_Act_Regulation_2024_1689_EN.txt",
+      "bytes": 584231,
+      "encoding": "UTF-8",
+      "sha256": "2ACFBEC8420B09F56DD61E1296DBC51EE37A9063E7C1DADE4C4320FA3E2BC17F",
+      "validation_status": "VALIDATED",
+      "governance_status": "QUALIFIED"
+    },
+    {
+      "artifact_id": "GDPR-2016-679-EN-TXT-DERIVED",
+      "act": "Regulation (EU) 2016/679",
+      "language": "en",
+      "format": "TXT",
+      "authority": "derived_official_clean_text",
+      "source_html_id": "GDPR-2016-679-EN-HTML",
+      "source_url": "https://eur-lex.europa.eu/legal-content/EN/TXT/HTML/?uri=CELEX:32016R0679",
+      "source_html_sha256": "962539AF03738BF552319FF4CE42D69E5F95A576307C4DFED7BF87E81B646B9D",
+      "converter": "app.rag.converter (BeautifulSoup4 html.parser + NFKC normalization v1.0.0)",
+      "derived_at_utc": "2026-07-28T01:51:52Z",
+      "path": "ressources/regulatory-corpus/derived/GDPR_Regulation_2016_679_EN.txt",
+      "bytes": 351630,
+      "encoding": "UTF-8",
+      "sha256": "18BCA19C8F1ACB2F9DD5963F2EC46406D90D6C3280B28FA73CBAA6562FE31D15",
+      "validation_status": "VALIDATED",
+      "governance_status": "QUALIFIED"
+    }
+  ],
+  "ingestion": {
+    "status": "QUALIFIED",
+    "claims_published": false,
+    "blocking_reason": null
+  },
+  "destructive_cleanup": {
+    "approved": false,
+    "performed": false
+  }
+}

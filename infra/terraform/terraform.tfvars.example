@@ -1,0 +1,6 @@
+project_id         = "kairosium-post-gscp-1"
+region             = "europe-west9"
+environment        = "prod"
+cluster_id         = "k-scm-alloydb-cluster"
+database_name      = "k_scm_rag"
+service_account_id = "kerdjou-scm-sa"

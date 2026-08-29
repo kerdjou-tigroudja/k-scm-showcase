@@ -1,0 +1,245 @@
+{
+  "id": "8380fc35-6a10-4e3b-a0e1-1a957e89dc34",
+  "appName": "app",
+  "userId": "user",
+  "state": {
+    "__session_metadata__": {
+      "displayName": "Exécute un audit de conformité statique complet..."
+    }
+  },
+  "events": [
+    {
+      "content": {
+        "parts": [
+          {
+            "text": "Exécute un audit de conformité statique complet sur le dépôt k-scm-mock-target-repository (fichiers IaC Terraform main.tf et code Python user_processor.py). Identifie toutes les violations réglementaires vis-à-vis de l'EU AI Act et du RGPD en région europe-west9, interroge le RAG réglementaire pour obtenir les articles juridiques officiels, génère la fiche ADR au format MADR v3 et soumets la Pull Request de remédiation GitOps."
+          }
+        ],
+        "role": "user"
+      },
+      "invocationId": "e-f1ddd1a6-7d42-4eef-8115-0c175cec6ffc",
+      "author": "user",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": ""
+      },
+      "id": "211ee8f5-9fad-4991-87d6-31d2ccbd187c",
+      "timestamp": 1785047882.467725
+    },
+    {
+      "modelVersion": "gemini-2.5-flash",
+      "content": {
+        "parts": [
+          {
+            "functionCall": {
+              "id": "adk-cf129624-ae92-4d15-a8d4-57c6d066d9ef",
+              "args": {
+                "file_path": "k-scm-mock-target-repository/main.tf"
+              },
+              "name": "parse_terraform_iac"
+            },
+            "thoughtSignature": "CnABjz1rX1FTP7BsbKhBWMtuYVjputJbwuz4eMdElip9tlqxJDAxXcR2KbBl_WBc19F2ViezHsmlYbCLXWH40CKH1LTsElH1X92U-fFdHcXqPZryY5_tQyHpYLWuyiWur-wKQYsBb1K1EfNUkf-EoJ9NCnABjz1rX7Xnh1jLZn7gwJGKb5UCg5UlfCTlGiOcfZmntkeE9zhfFYh1sYJcz8_wyJWALP6uiUlgHGEyLiJ-X8HgEhzgcDaxKRTzOVnDXUanpYQumyxv2gfulqP9Ar1DvSoNQ6wgXrgJ0VWvfpU7I6zoCpMBAY89a19RFdmHno_GH2Q8N6ZIdUtBk3QEBT969b8k_PWyyLwx2D90ETaaNtNdcBTvMEnrTBV-ms8YoL95QNHmCygRCXLakLHHR6woLJDEcZ5fuMFhHb-_Zd5M3bKWX9GQEoNZPRk6WwB6ZrLFzivWcECfbXwhoJndxrW-sSjDfCqqBLuhykzEXmTR2NIwYv1H2bLlCpQBAY89a182fET17yXO6nQ-Bh1amGypCp1dyBgkoh-IDNru_t_pvDw1nF22njXqH7rqSBQJITEKovX71WbwQcoH8zDCRiybJXhjRDpCHYyIThtKByDmXZMUxsjuS5VZSdlRpOFkvuBG8rfHc3JcwJAOy6qSJ7xMm_-7F2S8RjXuGBJgAx_UK6H5Kj10DlPC9fLpyfuYAgrTAQGPPWtfcbp8yOXcVuuOcIUxWPeHovgM75ad26Mru89rl6bRKnq-D5nqZ6U_KxJcka2Smb8qyCE8-SjU-Dx0qnv5eeWMIlAcrQhm9G98LPorJhCiYXlPNcW-62NgqlKWLNFIuQ49ePSjy0dGdYTDHX0ALE1gmAujF9VHHUqso7sxPgGEQff8V-8QDnF8YpGdChB5OoKLyMKKhTLT8qGFALkfO47raCaAiUYOj5kJiaVbjtIrxm5lamNbTBj1yR5XMNYfEJyjqQh77bDFCgsowI-MP88KpgEBjz1rX70cV1HNBZVsjDNAkrjMCpceoU_QUDlmCLmkI2vBnaHfeVZh4u__hH8YcUQU49ZOTsKgZs7ETzpgU-DSvrNLQCzOUL4SgLtBF2kjl-DT6Ms40OkKGMo0PUh-9wTmnpOzmq3_8mBMYUoDYsuPgDKUA78C56OR6Bqo0qZhiHa2fQzpMOXC9Jff7Cq3ddBdhcFWbi1srQAlUybm8MhKISTe1pRxCvABAY89a1-ApC9B2o9BeKZ54NOBXe59ZZw5WBx-fjImmAcoizCc05QNjVCuhLEkPFYvdZgio1eoir_lYzyl5PnqRPWU9XSsBOMEsmntcU47h_Zbks5xBa53CC_zrZiXgtwbJOR4xPMtnXrjLA5RS6Pg3bQTi4lc2Ygt0t1684idAYjJLcwZSVAHDFMvYtnswuI4Ob0wsk5NGaFUE8zNtR7iuCiyxAxOOGqnLgnsB5G5YPxMbrZYcrVNt6Q74qmSoS63m4Ib1zXhe8IZPxdj-6BYOEr-FaNeni_-HJEmuoZ3OgssEIuLeDP6xnK9tgaul55i"
+          }
+        ],
+        "role": "model"
+      },
+      "partial": false,
+      "finishReason": "STOP",
+      "usageMetadata": {
+        "candidatesTokenCount": 21,
+        "candidatesTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 21
+          }
+        ],
+        "promptTokenCount": 1211,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1211
+          }
+        ],
+        "thoughtsTokenCount": 259,
+        "totalTokenCount": 1491,
+        "trafficType": "ON_DEMAND"
+      },
+      "invocationId": "e-f1ddd1a6-7d42-4eef-8115-0c175cec6ffc",
+      "author": "root_agent",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": "root_agent@1"
+      },
+      "longRunningToolIds": [],
+      "id": "12bcdb56-c112-40f2-a65b-581b701a19be",
+      "timestamp": 1785047892.2743855
+    },
+    {
+      "content": {
+        "parts": [
+          {
+            "functionResponse": {
+              "id": "adk-cf129624-ae92-4d15-a8d4-57c6d066d9ef",
+              "name": "parse_terraform_iac",
+              "response": {
+                "result": "{\n  \"status\": \"error\",\n  \"message\": \"No .tf files found at path: k-scm-mock-target-repository/main.tf\",\n  \"violations\": []\n}"
+              }
+            }
+          }
+        ],
+        "role": "user"
+      },
+      "invocationId": "e-f1ddd1a6-7d42-4eef-8115-0c175cec6ffc",
+      "author": "root_agent",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": "root_agent@1"
+      },
+      "id": "3c83f414-4ea7-409f-9e27-2e2c12eb7a5e",
+      "timestamp": 1785047893.0277126
+    },
+    {
+      "modelVersion": "gemini-2.5-flash",
+      "content": {
+        "parts": [
+          {
+            "functionCall": {
+              "id": "adk-1a87c3f4-0c4d-4379-a704-405bac8149b4",
+              "args": {
+                "file_path": "k-scm-mock-target-repository/user_processor.py"
+              },
+              "name": "parse_python_source"
+            },
+            "thoughtSignature": "CmgBjz1rXzZdG9WjsCeYTJ-25Cxnh-nCYiLZky-iLx3xqMpSeCTzQ5u-oDAsqIoKdZUqOh72mk2p3T9DQzXVXlvyy3hYjQgrYVAAJZyilPcTBSU6vBBXmxFUxiIZsqCkXt8M5jo6TG-Ucgp5AY89a18-klkNc-W8J1Butfvw16Ex6qC0QOPQuhnaAkg2my9h4Mu0J_ivT8XPSQxIeGyRFdHr10qpdjyLU9oQmvGbcrOOPREruBX7d7CJpkM3YqhT0W9QIUn7FYv4OFvoPA_GtnAeAOthq63NAaSgim8Tfq_JtGQjZgqxAQGPPWtffKwx7QBt7cTHcaTdzafmUt6br6gHlOjny_9BS8_16OpnzMK_71myDsNauHF2wxyDd97HrrJAf4tgq256s_wu04rP94AfyZvzWUhQ6WIOGAuF6YRrev61ekLNtB_o0fi9scOIHiJQRLAK6SzU5HualiFHbAANCNRWpDIYGRVjHx-bJyfZ5UnsNUnc0oc30M7pBzyZsbFOGf4DhU0Zr5Mp-mBCFjatJOz7jpEQvAqCAQGPPWtfuZxCBt4vlUUf6soymuqhQ-ElQUPLfsxPatRGH7dVfQ3--X5rkEBvqimz8-te5CY7qT_kFuletbmtcsK8HjlKF4rCgq-XhQpvHZFipq_gnE0tZ9wSCLdenaX6r9TWqdIi4FjRDdy3mu8KpNWJrx9L2GtMqmdclLIQ0q-WyYEKUgGPPWtf-xD1tYk09LF4DfUQQwyN_v70kqsdh8K7tKXJibEUfRqS0gxfqg_vuNk-N2oN6vCMXS7Bhd_Flq1WmTy0Ui715GW9C15OaXkCKx8M11A="
+          }
+        ],
+        "role": "model"
+      },
+      "partial": false,
+      "finishReason": "STOP",
+      "usageMetadata": {
+        "candidatesTokenCount": 23,
+        "candidatesTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 23
+          }
+        ],
+        "promptTokenCount": 1283,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1283
+          }
+        ],
+        "thoughtsTokenCount": 121,
+        "totalTokenCount": 1427,
+        "trafficType": "ON_DEMAND"
+      },
+      "invocationId": "e-f1ddd1a6-7d42-4eef-8115-0c175cec6ffc",
+      "author": "root_agent",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": "root_agent@1"
+      },
+      "longRunningToolIds": [],
+      "id": "2e84df1a-a68b-44af-a265-b1babbcec348",
+      "timestamp": 1785047895.8294034
+    },
+    {
+      "content": {
+        "parts": [
+          {
+            "functionResponse": {
+              "id": "adk-1a87c3f4-0c4d-4379-a704-405bac8149b4",
+              "name": "parse_python_source",
+              "response": {
+                "result": "{\n  \"status\": \"error\",\n  \"message\": \"No .py files found at path: k-scm-mock-target-repository/user_processor.py\",\n  \"violations\": []\n}"
+              }
+            }
+          }
+        ],
+        "role": "user"
+      },
+      "invocationId": "e-f1ddd1a6-7d42-4eef-8115-0c175cec6ffc",
+      "author": "root_agent",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": "root_agent@1"
+      },
+      "id": "4da71f40-0913-46d8-9c43-2896e5d3a75c",
+      "timestamp": 1785047895.8775349
+    },
+    {
+      "modelVersion": "gemini-2.5-flash",
+      "content": {
+        "parts": [
+          {
+            "text": "Je n'ai pas pu trouver les fichiers `main.tf` et `user_processor.py` aux chemins spécifiés dans le dépôt `k-scm-mock-target-repository`.\n\nVeuillez vous assurer que les chemins sont corrects et me les fournir à nouveau afin que je puisse effectuer l'audit de conformité."
+          }
+        ],
+        "role": "model"
+      },
+      "partial": false,
+      "finishReason": "STOP",
+      "usageMetadata": {
+        "candidatesTokenCount": 69,
+        "candidatesTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 69
+          }
+        ],
+        "promptTokenCount": 1359,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 1359
+          }
+        ],
+        "thoughtsTokenCount": 166,
+        "totalTokenCount": 1594,
+        "trafficType": "ON_DEMAND"
+      },
+      "invocationId": "e-f1ddd1a6-7d42-4eef-8115-0c175cec6ffc",
+      "author": "root_agent",
+      "actions": {
+        "stateDelta": {},
+        "artifactDelta": {},
+        "requestedAuthConfigs": {},
+        "requestedToolConfirmations": {}
+      },
+      "nodeInfo": {
+        "path": "root_agent@1"
+      },
+      "id": "9d8aef31-90eb-442a-8f79-e39fbc6cdce2",
+      "timestamp": 1785047900.8225577
+    }
+  ],
+  "lastUpdateTime": 1785047900.8225577
+}
