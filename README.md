@@ -4,7 +4,8 @@
 [![Google ADK 2.0](https://img.shields.io/badge/Google_ADK-2.0-4285F4?logo=google&logoColor=white)](https://cloud.google.com/products/agent-development-kit)
 [![Python 3.12+](https://img.shields.io/badge/Python-3.12+-3776AB?logo=python&logoColor=white)](https://python.org)
 [![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-green.svg)](https://opensource.org/licenses/Apache-2.0)
-[![Live Cloud Run](https://img.shields.io/badge/Live_Service-Cloud_Run_Live-brightgreen)](https://k-scm-gjaydimv2q-od.a.run.app/.well-known/agent-card.json)
+[![Agent Card A2A](https://img.shields.io/badge/A2A_Protocol-Agent_Card_JSON-cyan)](docs/agent-card.json)
+[![RAGAS Precision](https://img.shields.io/badge/RAGAS_Precision-0.9750-brightgreen)](https://github.com/kerdjou-tigroudja/k-scm-showcase)
 
 > **Autonomous multi-agent compliance mesh for automated EU AI Act & GDPR audits, architectural decision generation (MADR), and Human-in-the-Loop GitOps remediation on Google Cloud Platform.**
 
@@ -20,7 +21,7 @@ Developed by **[Kerdjou Tigroudja](https://kerdjou.dev)** (`contact@kerdjou.dev`
 1. **Strict European Data Sovereignty :** Compute (Cloud Run), storage (Cloud Storage CMEK), vector embeddings (AlloyDB pgvector), and telemetry (BigQuery) are hosted strictly in the **`europe-west9` (Paris, France)** region.
 2. **Multi-Agent Orchestration (Google ADK 2.0) :** Specialized autonomous agents coordinate via standardized protocols (Agent-to-Agent A2A Card, JSON-RPC streaming).
 3. **Human-in-the-Loop GitOps Remediation :** Generates non-destructive pull requests containing corrected source files and formal Architectural Decision Records (MADR) for peer review.
-4. **Privacy-Preserving Telemetry :** Custom OpenTelemetry & BigQuery redacting pipeline ensuring 0% token leakage of secrets, API keys, or personal data.
+4. **Zero-Trust Security & Private IAM :** Cloud Run endpoints enforce authenticated IAM invoker controls (`roles/run.invoker`) and VPC Service Controls, preventing unauthenticated public token leakage.
 
 ---
 
@@ -36,7 +37,7 @@ graph TD
     Client["A2A Client / Webhook / CI/CD"]:::client
 
     subgraph CloudRun ["⚡ Cloud Run Service (europe-west9)"]
-        FastAPIApp["FastAPI Server & A2A Handler<br>/.well-known/agent-card.json"]:::agent
+        FastAPIApp["FastAPI Server & A2A Handler<br>/a2a/app/.well-known/agent-card.json"]:::agent
         Orchestrator["Root Orchestrator Agent<br>(Google ADK 2.0)"]:::agent
         
         Auditor["Static Code & IaC Auditor"]:::agent
@@ -71,15 +72,16 @@ graph TD
 
 ---
 
-## 🚀 Live Production Endpoints
+## 🚀 Live Production & A2A Endpoints
 
-K-SCM is live and deployed in production on Google Cloud Run:
-
-| Endpoint | Description | URL |
+| Resource | Description | Location / Access |
 |---|---|---|
-| **Agent-to-Agent (A2A) Card** | Machine-readable capabilities descriptor | [`https://k-scm-gjaydimv2q-od.a.run.app/.well-known/agent-card.json`](https://k-scm-gjaydimv2q-od.a.run.app/.well-known/agent-card.json) |
-| **A2A Streaming Protocol** | JSON-RPC 2.0 streaming agent execution | `https://k-scm-gjaydimv2q-od.a.run.app/a2a/app/` |
-| **Health Probe** | Service readiness & location verification | `https://k-scm-gjaydimv2q-od.a.run.app/health` |
+| **A2A Agent Card** | Machine-readable capabilities descriptor | [docs/agent-card.json](docs/agent-card.json) |
+| **Cloud Run Production Service** | Authenticated Serverless Node | `europe-west9 (Paris, France)` |
+| **Live Remediation Example** | Draft PR #1 with MADR v3 ADR | [k-scm-mock-target-showcase #1](https://github.com/kerdjou-tigroudja/k-scm-mock-target-showcase/pull/1) |
+| **A2A JSON-RPC Streaming** | Agent execution endpoint | `/a2a/app` (IAM Authenticated) |
+
+> 🔒 **Security Notice (Zero-Trust Ingress) :** In compliance with SecNumCloud and enterprise isolation standards, the live Cloud Run service enforces private IAM authentication (`roles/run.invoker`). Unauthenticated requests are rejected by design (HTTP 403 Forbidden). Authorized clients pass a Google Cloud OAuth2 Bearer token in the `Authorization` header.
 
 ---
 

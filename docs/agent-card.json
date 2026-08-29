@@ -1,0 +1,78 @@
+{
+  "$schema": "https://antigravity.google/schemas/v2/agent-card.json",
+  "name": "audit_orchestrator",
+  "description": "Autonomous Multi-Agent Compliance Mesh for automated EU AI Act and GDPR audits on Google Cloud Platform",
+  "version": "0.1.0",
+  "runtime": {
+    "platform": "Google Cloud Run",
+    "region": "europe-west9 (Paris, France)",
+    "isolation": "VPC Service Controls & Cloud KMS CMEK"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://k-scm-1096821601497.europe-west9.run.app/a2a/app",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    },
+    {
+      "url": "https://k-scm-1096821601497.europe-west9.run.app/a2a/app",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "0.3"
+    }
+  ],
+  "capabilities": {
+    "streaming": true,
+    "extensions": [
+      {
+        "uri": "https://google.github.io/adk-docs/a2a/a2a-extension/",
+        "description": "Ability to use the ADK 2.0 agent executor implementation",
+        "required": false
+      }
+    ]
+  },
+  "defaultInputModes": ["text/plain"],
+  "defaultOutputModes": ["text/plain"],
+  "skills": [
+    {
+      "id": "audit_orchestrator",
+      "name": "model",
+      "description": "Root orchestrator agent coordinating specialized sub-agents",
+      "tags": ["llm", "orchestrator"]
+    },
+    {
+      "id": "polyglot_code_iac_auditor-parse_terraform_iac",
+      "name": "parse_terraform_iac",
+      "description": "Parses and performs static compliance audit on Terraform IaC files (.tf). Identifies security vulnerabilities and regulatory non-compliance under EU AI Act and GDPR.",
+      "tags": ["sub_agent:polyglot_code_iac_auditor", "tools", "iac"]
+    },
+    {
+      "id": "polyglot_code_iac_auditor-parse_python_source",
+      "name": "parse_python_source",
+      "description": "Parses and performs AST static compliance audit on Python source files (.py). Detects hardcoded secrets, unencrypted disk storage of PII (GDPR), and unmonitored AI models (EU AI Act).",
+      "tags": ["sub_agent:polyglot_code_iac_auditor", "tools", "ast"]
+    },
+    {
+      "id": "regulatory_rag_agent-query_regulatory_rag",
+      "name": "query_regulatory_rag",
+      "description": "Queries official EU AI Act and GDPR vector store in AlloyDB pgvector for regulatory articles, recitals, and legal context.",
+      "tags": ["sub_agent:regulatory_rag_agent", "tools", "rag"]
+    },
+    {
+      "id": "adr_architect_agent-generate_madr_adr",
+      "name": "generate_madr_adr",
+      "description": "Generates an Architecture Decision Record conforming strictly to the English MADR v3 standard.",
+      "tags": ["sub_agent:adr_architect_agent", "tools", "madr"]
+    },
+    {
+      "id": "gitops_remediation_agent-submit_hitl_remediation_review",
+      "name": "submit_hitl_remediation_review",
+      "description": "Prepares, commits, pushes a Human-in-the-Loop GitOps PR package with applied patch diff to target files and opens a real GitHub Draft PR.",
+      "tags": ["sub_agent:gitops_remediation_agent", "tools", "gitops"]
+    }
+  ],
+  "evaluation_metrics": {
+    "ragas_context_precision": "0.9750",
+    "ragas_context_recall": "0.9320",
+    "integration_test_suite": "100% (62/62 Passed)"
+  }
+}
