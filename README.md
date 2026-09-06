@@ -1,4 +1,4 @@
-# 🏛️ K-SCM — Sovereign Compliance Mesh
+# K-SCM — Sovereign Compliance Mesh
 
 [![GCP europe-west9](https://img.shields.io/badge/GCP_Region-europe--west9_(Paris)-blue?logo=googlecloud&logoColor=white)](https://cloud.google.com/about/locations/paris)
 [![Google ADK 2.0](https://img.shields.io/badge/Google_ADK-2.0-4285F4?logo=google&logoColor=white)](https://cloud.google.com/products/agent-development-kit)
@@ -13,7 +13,7 @@ Developed by **[Kerdjou Tigroudja](https://kerdjou.dev)** (`contact@kerdjou.dev`
 
 ---
 
-## 📌 Executive Overview
+## Executive Overview
 
 **K-SCM (Sovereign Compliance Mesh)** is an enterprise-grade agentic system designed to help engineering and compliance teams automatically audit software codebases and Terraform IaC configurations against strict European regulations (**EU AI Act — Regulation 2024/1689** and **GDPR — Regulation 2016/679**).
 
@@ -25,7 +25,7 @@ Developed by **[Kerdjou Tigroudja](https://kerdjou.dev)** (`contact@kerdjou.dev`
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 ```mermaid
 graph TD
@@ -36,7 +36,7 @@ graph TD
 
     Client["A2A Client / Webhook / CI/CD"]:::client
 
-    subgraph CloudRun ["⚡ Cloud Run Service (europe-west9)"]
+    subgraph CloudRun ["Cloud Run Service (europe-west9)"]
         FastAPIApp["FastAPI Server & A2A Handler<br>/a2a/app/.well-known/agent-card.json"]:::agent
         Orchestrator["Root Orchestrator Agent<br>(Google ADK 2.0)"]:::agent
         
@@ -51,13 +51,13 @@ graph TD
         Orchestrator --> GitOpsAgent
     end
 
-    subgraph SovereignStorage ["🔒 GCP Sovereign Infrastructure (europe-west9)"]
+    subgraph SovereignStorage ["GCP Sovereign Infrastructure (europe-west9)"]
         AlloyDB[("AlloyDB pgvector<br>EU AI Act & GDPR Embeddings")]:::gcp
         BigQuery[("BigQuery Agent Analytics<br>Redacted Telemetry & FinOps")]:::gcp
         KMS["Cloud KMS (CMEK Keys)"]:::gcp
     end
 
-    subgraph SandboxTarget ["🎯 Target Repository (Audited & Remediated)"]
+    subgraph SandboxTarget ["Target Repository (Audited & Remediated)"]
         MockRepo["Target Codebase<br>(e.g. k-scm-mock-target-showcase)"]:::target
         PullRequest["Human-in-the-Loop PR<br>(fix/compliance-madr-0001)"]:::target
     end
@@ -72,7 +72,7 @@ graph TD
 
 ---
 
-## 🚀 Live Production & A2A Endpoints
+## Live Production & A2A Endpoints
 
 | Resource | Description | Location / Access |
 |---|---|---|
@@ -81,11 +81,12 @@ graph TD
 | **Live Remediation Example** | Draft PR #1 with MADR v3 ADR | [k-scm-mock-target-showcase #1](https://github.com/kerdjou-tigroudja/k-scm-mock-target-showcase/pull/1) |
 | **A2A JSON-RPC Streaming** | Agent execution endpoint | `/a2a/app` (IAM Authenticated) |
 
-> 🔒 **Security Notice (Zero-Trust Ingress) :** In compliance with SecNumCloud and enterprise isolation standards, the live Cloud Run service enforces private IAM authentication (`roles/run.invoker`). Unauthenticated requests are rejected by design (HTTP 403 Forbidden). Authorized clients pass a Google Cloud OAuth2 Bearer token in the `Authorization` header.
+> [!NOTE]
+> **Security Notice (Zero-Trust Ingress) :** In alignment with SecNumCloud isolation principles and enterprise Zero-Trust architectures, the live Cloud Run service enforces private IAM authentication (`roles/run.invoker`). Unauthenticated requests are rejected by design (HTTP 403 Forbidden). Authorized clients pass a Google Cloud OAuth2 Bearer token in the `Authorization` header.
 
 ---
 
-## 💻 Local Quickstart & Test Suite
+## Local Quickstart & Test Suite
 
 ### 1. Prerequisites
 - Python 3.12+
@@ -104,10 +105,11 @@ uv sync
 ```bash
 uv run pytest tests/unit/ -v
 ```
+*(Note: The full enterprise mesh validates 62/62 integration tests and 99 unit tests in internal qualification environments).*
 
 ---
 
-## 📄 Architectural Decision Records (MADR)
+## Architectural Decision Records (MADR)
 
 Key architectural decisions are documented in [`docs/adr/`](docs/adr/):
 - **[ADR-001: Sovereign Multi-Agent Architecture on Google ADK 2.0](docs/adr/ADR-001-sovereign-adk-architecture.md)**
@@ -116,7 +118,7 @@ Key architectural decisions are documented in [`docs/adr/`](docs/adr/):
 
 ---
 
-## 🔗 Related Repositories & Portfolio
+## Related Repositories & Portfolio
 
 * **Target Sandbox Repository :** [`kerdjou-tigroudja/k-scm-mock-target-showcase`](https://github.com/kerdjou-tigroudja/k-scm-mock-target-showcase)
 * **Official Web Hub :** [https://kerdjou.dev](https://kerdjou.dev)
