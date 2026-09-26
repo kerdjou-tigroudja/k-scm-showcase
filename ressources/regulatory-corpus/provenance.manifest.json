@@ -176,22 +176,7 @@
       "governance_status": "QUALIFIED"
     }
   ],
-  "legacy_artifacts": [
-    {
-      "path": "ressources/EU_AI_ACT_EN.txt",
-      "bytes": 586173,
-      "sha256": "2921D80635BD3E9CE3772E4CE28348C10C591DB8EFDF09DCE4F8F89C0A47FCEC",
-      "status": "DUPLICATE",
-      "reason": "Semantic duplicate of the English AI Act HTML representation."
-    },
-    {
-      "path": "ressources/GDPR_EN.txt",
-      "bytes": 586173,
-      "sha256": "2921D80635BD3E9CE3772E4CE28348C10C591DB8EFDF09DCE4F8F89C0A47FCEC",
-      "status": "INVALID",
-      "reason": "Contains Regulation (EU) 2024/1689 instead of Regulation (EU) 2016/679."
-    }
-  ],
+  "legacy_artifacts": [],
   "derived_artifacts": [
     {
       "artifact_id": "AI-2024-1689-EN-TXT-DERIVED",
@@ -236,7 +221,7 @@
     "blocking_reason": null
   },
   "destructive_cleanup": {
-    "approved": false,
-    "performed": false
+    "approved": true,
+    "performed": true
   }
 }

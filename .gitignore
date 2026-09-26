@@ -189,6 +189,7 @@ Thumbs.db
 
 # ADK
 .adk/
+ressources/logs/
 
 # Agent CLI specific
 .persist_vector_store
