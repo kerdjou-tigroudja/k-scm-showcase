@@ -10,10 +10,10 @@
     "observed_commit": "2db1d3562c2cb8f4877e7da5daced1d9a999ab3d"
   },
   "source_snapshot": {
-    "repository": "kerdjou-tigroudja/pilotage-professionnel",
+    "repository": "external-archive",
     "observed_commit": "4c52794471a92df85cdcae6152f86d2eb84926cf",
     "acquisition_date": "2026-07-27",
-    "acquisition_evidence": "Reconstructed from local filesystem timestamps and the source commit; no independent acquisition log was available."
+    "acquisition_evidence": "Reconstructed from local filesystem timestamps and the source commit; no independent acquisition log was available. Original cockpit archive removed from AI-Engineering workspace."
   },
   "reuse_policy": {
     "url": "https://eur-lex.europa.eu/content/legal-notice/legal-notice.html?locale=en",
