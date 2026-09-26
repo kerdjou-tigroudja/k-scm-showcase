@@ -23,8 +23,6 @@ def _load_env_file() -> None:
     """Loads environment variables from local .env files if not already present in os.environ."""
     candidates = [
         os.path.join(os.getcwd(), ".env"),
-        r"/home/kerdjou_tigroudja/workspace/k-scm/.env",
-        r"/home/kerdjou_tigroudja/.gemini/.env",
     ]
     for env_path in candidates:
         if os.path.exists(env_path):

@@ -101,7 +101,7 @@ cd k-scm-showcase
 uv sync
 ```
 
-### 3. Run Autonomous Unit Test Suite (38 tests, 100% Mocked/Offline)
+### 3. Run Autonomous Unit Test Suite (37 tests, 100% Mocked/Offline)
 ```bash
 uv run pytest tests/unit/ -v
 ```
