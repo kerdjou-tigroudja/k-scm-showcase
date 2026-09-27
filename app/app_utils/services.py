@@ -14,9 +14,9 @@
 
 """Process-wide ADK session/artifact services shared by every serving surface.
 
-Registered under ``shared://`` so the ADK web routes, the A2A path, and the
-reasoning_engine adapter share one instance: a session created on any surface
-is visible to the others.
+Registered under ``shared://`` so the ADK web routes mounted in
+``app/fast_api_app.py`` and the A2A path in ``app/app_utils/a2a.py`` share one
+instance: a session created on either surface is visible to the other.
 """
 
 from __future__ import annotations
@@ -48,8 +48,8 @@ def get_session_service():
 
         return VertexAiSessionService(
             project=os.environ.get("GOOGLE_CLOUD_PROJECT"),
-            # Runtime-injected agent-engine region, not GOOGLE_CLOUD_LOCATION
-            # (which agent.py pins to "global").
+            # GOOGLE_CLOUD_AGENT_ENGINE_LOCATION, else GOOGLE_CLOUD_LOCATION.
+            # app/agent.py sets neither; the sample default is .env.example.
             location=os.environ.get("GOOGLE_CLOUD_AGENT_ENGINE_LOCATION")
             or os.environ.get("GOOGLE_CLOUD_LOCATION"),
             agent_engine_id=agent_engine_id,

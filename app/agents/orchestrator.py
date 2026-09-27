@@ -12,30 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-from typing import Any
-
 from google.adk.agents import Agent
-from google.adk.models import Gemini
-from google.genai import types
 
 from app.agents.adr_agent import adr_architect_agent
 from app.agents.auditor import polyglot_auditor_agent
 from app.agents.doc_agent import branch_doc_writer_agent
+from app.agents.factory import get_gemini_model
 from app.agents.gitops_agent import gitops_remediation_agent
 from app.agents.rag_agent import regulatory_rag_agent
-from app.tools import (
-    generate_madr_adr,
-    parse_python_source,
-    parse_terraform_iac,
-    query_regulatory_rag,
-    submit_hitl_remediation_review,
-)
-
-
-from app.agents.factory import get_gemini_model, get_model_policy, resolve_model_config
-
-MODEL = get_model_policy()
 
 SYSTEM_INSTRUCTION = (
     "You are K-SCM (Sovereign Compliance Mesh) Autonomous Compliance Supervisor Agent.\n"

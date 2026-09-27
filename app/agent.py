@@ -22,14 +22,7 @@ from google.adk.plugins.bigquery_agent_analytics_plugin import (
 )
 from google.cloud import bigquery
 
-from app.agents import (
-    adr_architect_agent,
-    branch_doc_writer_agent,
-    gitops_remediation_agent,
-    orchestrator_agent as root_agent,
-    polyglot_auditor_agent,
-    regulatory_rag_agent,
-)
+from app.agents import orchestrator_agent as root_agent
 
 # Initialize BigQuery Analytics Plugin in sovereign region europe-west9
 _plugins = []

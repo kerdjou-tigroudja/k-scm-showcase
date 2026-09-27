@@ -79,7 +79,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     yield
 
 
-from fastapi.responses import RedirectResponse, Response
+from fastapi.responses import Response
 
 app: FastAPI = get_fast_api_app(
     agents_dir=AGENT_DIR,
@@ -91,7 +91,6 @@ app: FastAPI = get_fast_api_app(
     lifespan=lifespan,
 )
 app.title = "k-scm"
-app.description = "API for interacting with the Agent k-scm"
 app.description = "API for interacting with the Agent k-scm"
 
 # PRISM_DARK_CSS theme definition for dev-ui code highlighting

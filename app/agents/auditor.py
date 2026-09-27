@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-
 from google.adk.agents import Agent
 from app.agents.factory import get_gemini_model
 from app.tools.static_audit_tool import parse_python_source, parse_terraform_iac

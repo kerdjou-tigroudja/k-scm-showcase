@@ -12,8 +12,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import os
-
 from google.adk.agents import Agent
 from app.agents.factory import get_gemini_model
 from app.tools.gitops_tool import submit_hitl_remediation_review
