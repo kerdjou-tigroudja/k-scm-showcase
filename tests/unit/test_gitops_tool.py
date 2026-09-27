@@ -1,22 +1,75 @@
 import json
 import os
+import socket
+from unittest.mock import patch
 
 import pytest
 
 from app.tools.gitops_tool import (
     _apply_patch_to_repo,
+    _has_unique_commits,
     _sanitize_logs,
     _stage_remediation_inventory,
     _validate_remediation_branch,
     _validate_target_repository,
     submit_hitl_remediation_review,
-    _has_unique_commits,
 )
 
 
-def test_submit_hitl_remediation_review_happy_path():
-    from unittest.mock import patch
-    with patch("app.tools.gitops_tool._has_unique_commits", return_value=True):
+def _refuse_network(*_args, **_kwargs):
+    raise AssertionError("GitOps happy-path unit test must stay offline")
+
+
+class _OfflineHttpResponse:
+    """Context-manager stand-in for urllib responses used by PR create."""
+
+    def __init__(self, payload):
+        self._raw = json.dumps(payload).encode("utf-8")
+
+    def read(self):
+        return self._raw
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *_args):
+        return False
+
+
+def _offline_github_urlopen(req, timeout=15):
+    """Serve the draft-PR create and the follow-up draft check without network."""
+    method = req.get_method()
+    url = req.full_url
+    expected_prefix = "https://api.github.com/repos/kerdjou-tigroudja/k-scm-mock-target-repository/pulls"
+    if not str(url).startswith(expected_prefix):
+        raise AssertionError(f"offline test refused live HTTP {method} {url}")
+
+    pr_payload = {
+        "html_url": "https://github.com/kerdjou-tigroudja/k-scm-mock-target-repository/pull/1",
+        "number": 1,
+        "draft": True,
+    }
+    if method == "POST":
+        return _OfflineHttpResponse(pr_payload)
+    if method == "GET":
+        return _OfflineHttpResponse([pr_payload])
+    raise AssertionError(f"offline test refused live HTTP {method} {url}")
+
+
+def test_submit_hitl_remediation_review_happy_path(monkeypatch):
+    monkeypatch.setattr(socket, "create_connection", _refuse_network)
+    monkeypatch.setattr(socket, "getaddrinfo", _refuse_network)
+    with (
+        patch("app.tools.gitops_tool._has_unique_commits", return_value=True),
+        patch(
+            "app.tools.gitops_tool._get_github_token",
+            return_value="gho_offline_stub_token",
+        ) as mock_token,
+        patch(
+            "app.tools.gitops_tool.urllib.request.urlopen",
+            side_effect=_offline_github_urlopen,
+        ),
+    ):
         raw_result = submit_hitl_remediation_review(
             repo_name="k-scm-mock-target-repository",
             branch_name="fix/compliance-madr-0001",
@@ -34,6 +87,8 @@ def test_submit_hitl_remediation_review_happy_path():
         assert result["is_draft_pr_verified"] is True
         assert len(result["human_review_checklist"]) == 5
         assert "pull_request_url" in result
+        assert "/pull/" in result["pull_request_url"]
+        mock_token.assert_called_once()
 
 
 def test_apply_patch_to_repo():
