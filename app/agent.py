@@ -34,7 +34,7 @@ from app.agents import (
 # Initialize BigQuery Analytics Plugin in sovereign region europe-west9
 _plugins = []
 _project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
-_dataset_id = os.environ.get("BQ_ANALYTICS_DATASET_ID", "k_scm_agent_analytics")
+_dataset_id = os.environ.get("BQ_ANALYTICS_DATASET_ID", "adk_agent_analytics")
 _bq_location = os.environ.get("BQ_LOCATION", "europe-west9")
 
 if _project_id:
