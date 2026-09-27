@@ -22,12 +22,6 @@ variable "cluster_id" {
   default     = "k-scm-alloydb-cluster"
 }
 
-variable "database_name" {
-  description = "AlloyDB database name for regulatory RAG"
-  type        = string
-  default     = "k_scm_rag"
-}
-
 variable "service_account_id" {
   description = "Service Account ID for K-SCM Agent"
   type        = string
