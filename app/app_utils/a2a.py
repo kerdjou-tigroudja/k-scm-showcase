@@ -16,7 +16,8 @@
 
 func:`attach_a2a_routes` registers the dynamic
 agent-card endpoint and the JSON-RPC endpoint so the same app serves A2A
-alongside the adk_api routes, reachable by A2A clients and Gemini Enterprise A2A
+alongside the ADK routes mounted by get_fast_api_app in app/fast_api_app.py,
+reachable by A2A clients and Gemini Enterprise A2A
 registration.
 """
 
