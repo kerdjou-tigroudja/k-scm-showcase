@@ -16,39 +16,19 @@ import contextlib
 import os
 from collections.abc import AsyncIterator
 
-import google.auth
 from a2a.server.tasks import InMemoryTaskStore
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from google.adk.cli.fast_api import get_fast_api_app
 from google.adk.runners import Runner
-from google.cloud import logging as google_cloud_logging
-
-import uuid
-from typing import Literal
-from pydantic import BaseModel, Field
 
 from app.app_utils import services
 from app.app_utils.a2a import attach_a2a_routes
 from app.telemetry import setup_telemetry
 
 
-class Feedback(BaseModel):
-    """Represents feedback for a conversation."""
-
-    score: int | float
-    text: str | None = ""
-    log_type: Literal["feedback"] = "feedback"
-    service_name: Literal["k-scm"] = "k-scm"
-    user_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-    session_id: str = Field(default_factory=lambda: str(uuid.uuid4()))
-
-
 load_dotenv()
 setup_telemetry("k-scm")
-_, project_id = google.auth.default()
-logging_client = google_cloud_logging.Client()
-logger = logging_client.logger(__name__)
 allow_origins = (
     os.getenv("ALLOW_ORIGINS", "").split(",") if os.getenv("ALLOW_ORIGINS") else None
 )
@@ -120,20 +100,6 @@ pre[class*="language-"] { padding: 1em; margin: .5em 0; overflow: auto; backgrou
 async def serve_prism_dark_css() -> Response:
     """Serves the Prism Dark CSS theme to prevent 404s on ADK Dev-UI."""
     return Response(content=PRISM_DARK_CSS, media_type="text/css")
-
-
-@app.post("/feedback")
-def collect_feedback(feedback: Feedback) -> dict[str, str]:
-    """Collect and log feedback.
-
-    Args:
-        feedback: The feedback data to log
-
-    Returns:
-        Success message
-    """
-    logger.log_struct(feedback.model_dump(), severity="INFO")
-    return {"status": "success"}
 
 
 # Main execution
