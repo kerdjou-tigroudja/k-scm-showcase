@@ -30,9 +30,8 @@ class RegulatoryChunk(BaseModel):
 class RegulatoryChunker:
     """Parser & Chunker for official EU regulatory text files."""
 
-    def __init__(self, default_chunk_size: int = 1000, max_overlap: int = 150):
+    def __init__(self, default_chunk_size: int = 1000):
         self.default_chunk_size = default_chunk_size
-        self.max_overlap = max_overlap
 
     def chunk_file(self, file_path: str, doc_id: str) -> list[RegulatoryChunk]:
         """Reads a legal TXT file and produces structured RegulatoryChunk objects."""

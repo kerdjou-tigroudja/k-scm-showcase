@@ -5,16 +5,17 @@ Unit tests for query_regulatory_rag tool.
 import json
 
 from app.rag.chunker import RegulatoryChunk
-from app.rag.service import get_rag_service
+from app.rag.service import RegulatoryRAGService
+from app.rag.vector_store import LocalVectorStore
 from app.tools.rag_tool import query_regulatory_rag
 
 
-def test_query_regulatory_rag_tool():
-    rag_service = get_rag_service()
+def test_query_regulatory_rag_tool(monkeypatch):
+    store = LocalVectorStore()
+    rag_service = RegulatoryRAGService(vector_store=store)
 
-    # Add mock chunks to vector store
     chunk = RegulatoryChunk(
-        chunk_id="TEST_ART_15",
+        chunk_id="EU_AI_ACT_ARTICLE_15",
         doc_id="EU_AI_ACT",
         article_num="Article 15",
         section_title="Accuracy, robustness and cybersecurity",
@@ -23,9 +24,10 @@ def test_query_regulatory_rag_tool():
     embedding = rag_service.embedding_service.generate_embedding(
         chunk.content, task_type="RETRIEVAL_DOCUMENT"
     )
-    rag_service.vector_store.add_chunks([chunk], [embedding])
+    store.add_chunks([chunk], [embedding])
 
-    # Query via tool
+    monkeypatch.setattr("app.tools.rag_tool.get_rag_service", lambda: rag_service)
+
     result_str = query_regulatory_rag(
         vector_query="cybersecurity requirements for high-risk AI",
         doc_filter="EU_AI_ACT",
