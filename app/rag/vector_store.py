@@ -143,8 +143,6 @@ class LocalVectorStore(BaseVectorStore):
                     text_score += min(1.0, (matched / len(words))) * 0.5
 
             final_score = max(vec_score, text_score) if text_score > 0 else vec_score
-            if chunk.chunk_id.startswith("TEST_"):
-                final_score += 0.2
 
             results.append(
                 {
