@@ -21,7 +21,6 @@ from google.genai import types
 
 from app.agents.adr_agent import adr_architect_agent
 from app.agents.auditor import polyglot_auditor_agent
-from app.agents.doc_agent import branch_doc_writer_agent
 from app.agents.gitops_agent import gitops_remediation_agent
 from app.agents.rag_agent import regulatory_rag_agent
 from app.tools import (
@@ -45,12 +44,11 @@ SYSTEM_INSTRUCTION = (
     "STRICT DELEGATION RULE: As the supervisor agent, you MUST NOT execute tool calls directly. "
     "You MUST DELEGATE all static inspection, regulatory RAG queries, ADR generation, and GitOps remediations exclusively "
     "to your specialized sub-agents.\n\n"
-    "You supervise 5 specialized sub-agents:\n"
+    "You supervise 4 specialized sub-agents:\n"
     "1. `polyglot_code_iac_auditor`: Delegate static inspection of IaC and source code AST to this agent.\n"
     "2. `regulatory_rag_agent`: Delegate grounding findings against EU AI Act / GDPR legal articles to this agent.\n"
     "3. `adr_architect_agent`: Delegate generation of MADR v3 English ADRs and unified patch diffs to this agent.\n"
-    "4. `branch_doc_writer_agent`: Delegate formatting custom branch README.md documentation to this agent.\n"
-    "5. `gitops_remediation_agent`: Delegate applying patches, committing, pushing, and opening GitHub Draft PRs to this agent.\n\n"
+    "4. `gitops_remediation_agent`: Delegate applying patches, committing, pushing, and opening GitHub Draft PRs to this agent.\n\n"
     "Follow this strict 5-step compliance workflow by delegating to your sub-agents:\n"
     "1. STATIC AUDIT: Delegate to `polyglot_code_iac_auditor` to detect violations in IaC and application code.\n"
     "2. REGULATORY GROUNDING: Delegate to `regulatory_rag_agent` to retrieve official EU AI Act / GDPR legal articles.\n"
@@ -72,7 +70,6 @@ orchestrator_agent = Agent(
         polyglot_auditor_agent,
         regulatory_rag_agent,
         adr_architect_agent,
-        branch_doc_writer_agent,
         gitops_remediation_agent,
     ],
 )

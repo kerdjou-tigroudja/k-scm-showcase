@@ -14,14 +14,12 @@
 
 from app.agents.adr_agent import adr_architect_agent
 from app.agents.auditor import polyglot_auditor_agent
-from app.agents.doc_agent import branch_doc_writer_agent
 from app.agents.gitops_agent import gitops_remediation_agent
 from app.agents.orchestrator import orchestrator_agent
 from app.agents.rag_agent import regulatory_rag_agent
 
 __all__ = [
     "adr_architect_agent",
-    "branch_doc_writer_agent",
     "gitops_remediation_agent",
     "orchestrator_agent",
     "polyglot_auditor_agent",
