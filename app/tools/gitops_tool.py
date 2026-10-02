@@ -97,7 +97,7 @@ def _validate_remediation_branch(branch_name: str) -> None:
         raise ValueError(f"BLOCKED: Direct commit or push to forbidden target branch '{branch_name}' is strictly disallowed.")
 
 
-def _generate_repo_tree(repo_dir: str, indent: str = "") -> str:
+def _generate_repo_tree(repo_dir: str) -> str:
     """Generates an ASCII file tree string for the repository directory."""
     lines = [f"{os.path.basename(repo_dir)}/"]
     ignored = {".git", "__pycache__", ".venv", ".pytest_cache", ".adk", "node_modules"}
@@ -274,7 +274,6 @@ def _stage_remediation_inventory(repo_dir: str, allowed_file_paths: list[str]) -
         rel_path = line[3:].strip().strip('"')
         norm_rel = os.path.normpath(rel_path).replace("\\", "/")
 
-        # S'assurer que README.md, docs/adr/* et tous les fichiers contenus dans allowed_file_paths soient correctement indexés via git add.
         is_allowed = (
             norm_rel == "README.md"
             or norm_rel.startswith("docs/adr/")
@@ -289,8 +288,8 @@ def _stage_remediation_inventory(repo_dir: str, allowed_file_paths: list[str]) -
     return staged_files
 
 
-def _has_unique_commits(repo_dir: str, branch_name: str, base_branch: str = "main") -> bool:
-    """Checks if there are net-new unique commits in HEAD/branch_name relative to the base branch."""
+def _has_unique_commits(repo_dir: str, base_branch: str = "main") -> bool:
+    """Checks if there are net-new unique commits in HEAD relative to the base branch."""
     code, out = _run_git_cmd(["git", "rev-list", "--count", f"origin/{base_branch}..HEAD"], cwd=repo_dir, retries=1)
     if code != 0:
         code, out = _run_git_cmd(["git", "rev-list", "--count", f"{base_branch}..HEAD"], cwd=repo_dir, retries=1)
@@ -357,7 +356,7 @@ def _create_github_pull_request(
     Returns:
         Tuple of (pr_url, log_message, is_verified_draft_boolean)
     """
-    if repo_dir and not _has_unique_commits(repo_dir, branch_name, base_branch="main"):
+    if repo_dir and not _has_unique_commits(repo_dir, base_branch="main"):
         return (
             "PR_CREATION_CANCELLED: No unique commits between main and " + branch_name,
             "PR creation skipped: 0 unique commits detected",
@@ -517,6 +516,7 @@ def submit_hitl_remediation_review(
     _validate_remediation_branch(branch_name)
 
     pushed_remote = False
+    pr_cancelled = False
     git_logs = []
     created_adr_files = []
     modified_files = []
@@ -591,46 +591,15 @@ def submit_hitl_remediation_review(
         git_logs.append(f"Commit: {out_commit.strip()[:100]}")
 
         # Guard clause: Verify if the remediation branch contains unique commits relative to main
-        if not _has_unique_commits(repo_dir, branch_name, base_branch="main"):
-            sanitized_logs = _sanitize_logs(git_logs)
-            payload = {
-                "status": "pr_cancelled_no_commits",
-                "mode": "Human-in-the-Loop (Zero-Trust)",
-                "repository": repo_name,
-                "target_branch": "main",
-                "remediation_branch": branch_name,
-                "pull_request_url": "",
-                "is_draft_pr_verified": False,
-                "pushed_remote": False,
-                "adr_files_count": len(created_adr_files),
-                "adr_file_paths": created_adr_files,
-                "branch_readme_generated": True,
-                "executive_summary": compliance_summary,
-                "human_review_checklist": [
-                    "Review custom branch README.md for repository tree & full audit report.",
-                    f"Review {len(created_adr_files)} MADR ADR documents under 'docs/adr/' for legal and technical justification.",
-                    "Verify unified diff patch against Terraform / Python code guidelines.",
-                    "Ensure CMEK keys and SecNumCloud region 'europe-west9' requirements are satisfied.",
-                    "Approve and merge Draft PR to apply compliance remediation."
-                ],
-                "git_execution_logs": sanitized_logs,
-                "submitted_at": datetime.now(UTC).isoformat(),
-                "diagnostic": "Remediation branch contains 0 net-new commits relative to main. PR creation cancelled to prevent GitHub HTTP 422 error."
-            }
-            return json.dumps(payload, indent=2)
-
-        code_push, out_push = _run_git_cmd(["git", "push", "-u", "origin", branch_name], cwd=repo_dir, retries=3)
-        if code_push == 0 or "Everything up-to-date" in out_push or "branch" in out_push:
-            pushed_remote = True
-            git_logs.append(f"Pushed to remote origin/{branch_name}")
+        if not _has_unique_commits(repo_dir, base_branch="main"):
+            pr_cancelled = True
         else:
-            git_logs.append(f"Push warning: {out_push.strip()[:100]}")
-
-    pr_body_text = f"## 🛡️ K-SCM Sovereign Compliance Remediation\n\n{compliance_summary}\n\n### 📄 Generated ADRs ({len(created_adr_files)})\n" + "\n".join([f"- `{f}`" for f in created_adr_files])
-    pr_url, pr_log, is_verified_draft = _create_github_pull_request(repo_slug, branch_name, pr_title, pr_body_text, repo_dir=repo_dir)
-    git_logs.append(f"GitHub PR: {pr_log} | Verified Draft={is_verified_draft}")
-
-    gitops_status = "git_branch_pushed_remote" if pushed_remote else "git_branch_created_locally"
+            code_push, out_push = _run_git_cmd(["git", "push", "-u", "origin", branch_name], cwd=repo_dir, retries=3)
+            if code_push == 0 or "Everything up-to-date" in out_push or "branch" in out_push:
+                pushed_remote = True
+                git_logs.append(f"Pushed to remote origin/{branch_name}")
+            else:
+                git_logs.append(f"Push warning: {out_push.strip()[:100]}")
 
     review_checklist = [
         "Review custom branch README.md for repository tree & full audit report.",
@@ -639,6 +608,16 @@ def submit_hitl_remediation_review(
         "Ensure CMEK keys and SecNumCloud region 'europe-west9' requirements are satisfied.",
         "Approve and merge Draft PR to apply compliance remediation."
     ]
+
+    if pr_cancelled:
+        pr_url = ""
+        is_verified_draft = False
+        gitops_status = "pr_cancelled_no_commits"
+    else:
+        pr_body_text = f"## 🛡️ K-SCM Sovereign Compliance Remediation\n\n{compliance_summary}\n\n### 📄 Generated ADRs ({len(created_adr_files)})\n" + "\n".join([f"- `{f}`" for f in created_adr_files])
+        pr_url, pr_log, is_verified_draft = _create_github_pull_request(repo_slug, branch_name, pr_title, pr_body_text, repo_dir=repo_dir)
+        git_logs.append(f"GitHub PR: {pr_log} | Verified Draft={is_verified_draft}")
+        gitops_status = "git_branch_pushed_remote" if pushed_remote else "git_branch_created_locally"
 
     sanitized_logs = _sanitize_logs(git_logs)
 
@@ -657,7 +636,9 @@ def submit_hitl_remediation_review(
         "executive_summary": compliance_summary,
         "human_review_checklist": review_checklist,
         "git_execution_logs": sanitized_logs,
-        "submitted_at": datetime.now(UTC).isoformat()
+        "submitted_at": datetime.now(UTC).isoformat(),
     }
+    if pr_cancelled:
+        payload["diagnostic"] = "Remediation branch contains 0 net-new commits relative to main. PR creation cancelled to prevent GitHub HTTP 422 error."
 
     return json.dumps(payload, indent=2)
