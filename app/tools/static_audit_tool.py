@@ -44,58 +44,46 @@ def _extract_hcl_resource_blocks(content: str) -> list[tuple[str, str, str, int]
     return blocks
 
 
-def _is_ignored_path(path: Path) -> bool:
-    """Helper to check if a path belongs to tests, fixtures, or virtual environments."""
-    ignored = {"tests", "fixtures", ".venv", ".git", ".pytest_cache"}
-    return any(part in ignored for p in [path] for part in p.parts)
+_IGNORED_DIR_NAMES = frozenset({"tests", "fixtures", ".venv", ".git", ".pytest_cache"})
 
 
-def _resolve_tf_files(file_path: str) -> list[Path]:
-    """Helper to resolve .tf files strictly confined to the requested target directory/file."""
-    path = Path(file_path).resolve() if Path(file_path).is_absolute() else (Path.cwd() / file_path).resolve()
+def _is_ignored_path(path: Path, root: Path) -> bool:
+    """Skip tests, fixtures, and environments nested inside the scan root.
 
-    if path.is_file() and path.suffix == ".tf":
-        if not _is_ignored_path(path):
-            return [path]
-    if path.is_dir():
-        files = [f for f in path.glob("**/*.tf") if not _is_ignored_path(f)]
-        if files:
-            return sorted(files)
+    The caller's explicit path stays eligible even when that path itself lives
+    under tests or fixtures. Only child directories of ``root`` are ignored.
+    """
+    try:
+        relative_parts = path.relative_to(root).parts
+    except ValueError:
+        relative_parts = path.parts
+    return any(part in _IGNORED_DIR_NAMES for part in relative_parts[:-1])
 
-    # Fallback for relative path without cwd prefix if path does not exist directly
+
+def _resolve_source_files(file_path: str, suffix: str) -> list[Path]:
+    """Resolve files with ``suffix`` strictly under the requested path.
+
+    Absolute and cwd-relative paths are tried first. A raw relative path is
+    the fallback when the cwd-joined path does not exist. A file or directory
+    the caller named explicitly is always eligible, including fixture paths.
+    """
     raw_path = Path(file_path)
-    if raw_path.is_file() and raw_path.suffix == ".tf" and not _is_ignored_path(raw_path):
-        return [raw_path]
-    if raw_path.is_dir():
-        files = [f for f in raw_path.glob("**/*.tf") if not _is_ignored_path(f)]
-        if files:
-            return sorted(files)
+    if raw_path.is_absolute():
+        candidates = [raw_path.resolve()]
+    else:
+        candidates = [(Path.cwd() / raw_path).resolve(), raw_path]
 
-
-    return []
-
-
-def _resolve_py_files(file_path: str) -> list[Path]:
-    """Helper to resolve .py files strictly confined to the requested target directory/file."""
-    path = Path(file_path).resolve() if Path(file_path).is_absolute() else (Path.cwd() / file_path).resolve()
-
-    if path.is_file() and path.suffix == ".py":
-        if not _is_ignored_path(path):
+    for path in candidates:
+        if path.is_file() and path.suffix == suffix:
             return [path]
-    if path.is_dir():
-        files = [f for f in path.glob("**/*.py") if not _is_ignored_path(f)]
-        if files:
-            return sorted(files)
-
-    # Fallback for relative path without cwd prefix if path does not exist directly
-    raw_path = Path(file_path)
-    if raw_path.is_file() and raw_path.suffix == ".py" and not _is_ignored_path(raw_path):
-        return [raw_path]
-    if raw_path.is_dir():
-        files = [f for f in raw_path.glob("**/*.py") if not _is_ignored_path(f)]
-        if files:
-            return sorted(files)
-
+        if path.is_dir():
+            files = [
+                file
+                for file in path.glob(f"**/*{suffix}")
+                if file.is_file() and not _is_ignored_path(file, path)
+            ]
+            if files:
+                return sorted(files)
 
     return []
 
@@ -112,7 +100,7 @@ def parse_terraform_iac(file_path: str = ".") -> str:
     Returns:
         JSON string containing the audit report with detected violations, line numbers, and regulatory tags.
     """
-    tf_files = _resolve_tf_files(file_path)
+    tf_files = _resolve_source_files(file_path, ".tf")
 
     if not tf_files:
         return json.dumps({
@@ -247,7 +235,7 @@ def parse_python_source(file_path: str = ".") -> str:
     Returns:
         JSON string containing the AST audit report with detected violations and regulatory classifications.
     """
-    py_files = _resolve_py_files(file_path)
+    py_files = _resolve_source_files(file_path, ".py")
 
     if not py_files:
         return json.dumps({
