@@ -100,7 +100,7 @@ def test_has_unique_commits_with_commits():
     with patch("app.tools.gitops_tool._run_git_cmd") as mock_run:
         # Mocking the first call: origin/main..HEAD -> returns count of 5
         mock_run.return_value = (0, "5\n")
-        assert _has_unique_commits("dummy_dir", "fix/branch", "main") is True
+        assert _has_unique_commits("dummy_dir", "main") is True
         mock_run.assert_called_with(["git", "rev-list", "--count", "origin/main..HEAD"], cwd="dummy_dir", retries=1)
 
 
@@ -109,7 +109,7 @@ def test_has_unique_commits_no_commits():
     with patch("app.tools.gitops_tool._run_git_cmd") as mock_run:
         # Mocking the first call: origin/main..HEAD -> returns count of 0
         mock_run.return_value = (0, "0\n")
-        assert _has_unique_commits("dummy_dir", "fix/branch", "main") is False
+        assert _has_unique_commits("dummy_dir", "main") is False
 
 
 def test_has_unique_commits_fallback():
@@ -120,7 +120,7 @@ def test_has_unique_commits_fallback():
             (1, "error"),
             (0, "3\n")
         ]
-        assert _has_unique_commits("dummy_dir", "fix/branch", "main") is True
+        assert _has_unique_commits("dummy_dir", "main") is True
         assert mock_run.call_count == 2
 
 
