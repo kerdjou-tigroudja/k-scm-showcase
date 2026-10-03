@@ -3,14 +3,6 @@ resource "google_compute_network" "k_scm_vpc" {
   auto_create_subnetworks = false
 }
 
-resource "google_compute_subnetwork" "k_scm_subnet" {
-  name                     = "k-scm-subnet-${var.region}"
-  ip_cidr_range            = "10.100.0.0/20"
-  region                   = var.region
-  network                  = google_compute_network.k_scm_vpc.id
-  private_ip_google_access = true
-}
-
 resource "google_compute_global_address" "private_ip_alloc" {
   name          = "k-scm-private-ip-alloc"
   purpose       = "VPC_PEERING"
