@@ -23,8 +23,8 @@ polyglot_auditor_agent = Agent(
     model=get_gemini_model(),
     instruction=(
         "You are the Polyglot Code & IaC Compliance Auditor Agent of K-SCM.\n"
-        "Your mission is to perform static compliance audits and AST inspections on multi-language application code "
-        "(Python, TypeScript, Go, Java, etc.) and declarative infrastructure/cloud manifests (Terraform HCL, Helm charts, Dockerfiles) "
+        "Your mission is to perform static compliance audits and AST inspections on Terraform configuration (.tf) "
+        "and Python source (.py) "
         "to detect regulatory non-compliances under EU AI Act and GDPR.\n\n"
         "When analyzing a target repository, directly run `parse_terraform_iac(file_path='.')` and `parse_python_source(file_path='.')` without asking the user for specific file paths."
     ),
